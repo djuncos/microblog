@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About Me</a></li>
+
+   <<% if session[:user_id] %>
+      <li><a href="/posts/new">New Post</a></li> 
+    <% end %>
+
+   <% if post_show_page?  %>
+      <li><a href="/posts/<%= @post.id %>/edit">Edit Post</a></li>
+      <li><%= delete_post_button(@post.id) %></li>
+    <% end %>
+
+   <% if session[:user_id] %>
+      <li><% session[:username] %></li> 
+    <% end %>
+
+  </ul>
+  <%= yield %>
+</body>
+</html>
