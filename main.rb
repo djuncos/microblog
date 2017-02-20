@@ -22,7 +22,7 @@ post '/sign-in' do
 	@user = User.where(username: params[:username]).first
 	session[:user_id] = @user.id
 	if @user.password == params[:password]
-		flash[:notice] = "Successfully logged in."
+		flash[:login] = "Successfully logged in."
      	redirect '/'   
 	else
 		redirect '/login-failed'
@@ -47,17 +47,28 @@ post '/posts' do
 	@user = User.find(session[:user_id])
 	@post = Post.new(params[:post])
 	Post.create(user_id: @user.id, title: @post.title, body: @post.body)
-	puts "my params are" + params.inspect
+	# puts "my params are" + params.inspect
 	redirect '/' 
+end
 
+get "/profile" do
+	if session[:user_id]       
+		@current_user = User.find(session[:user_id])     
+	end
+	@username = @current_user.username
+	@posts = Post.where(user_id: @current_user.id)
+	# @posts = Post.all
+	erb :profile
 end
 
 
 
 
-
-
-
+get '/sign-out' do
+  session.clear
+  flash[:logout] = "You've successfully signed out."
+    redirect '/sign-in'
+end
 
 # methods
 

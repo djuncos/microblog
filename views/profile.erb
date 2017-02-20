@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>profile</title>
+</head>
+<body>
+
+<h1><%= "Profile" %></h1>
+
+
+
+<ul>
+		<%= @username%>
+</ul>
+
+<a href="/">Feed</a>
+
+<ul>
+
+	<% @posts.each do |post| %>
+	  <li>
+	    <span><%= date_method (post.created_at) %></span>
+	    &nbsp;&nbsp;&nbsp;&nbsp;<span><%= post.title %></span>
+	    &nbsp;&nbsp;&nbsp;&nbsp;<span><%= post.body %></span>
+
+	  </li>
+	<% end %>
+</ul>
+
+
+
+</body>
+</html>
